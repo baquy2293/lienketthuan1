@@ -266,7 +266,7 @@ int main()
         }
         else
         {
-            printf("nhap cac so tu 0 den 7");
+            printf("nhap cac so tu 0 den 6");
         }
         printf("BAM PHIM BAT KI DE VAO MENU\n");
         getch();
