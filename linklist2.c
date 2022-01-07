@@ -6,18 +6,22 @@
 #define true 1
 #define false 0
 #define TIME_FAST 100
+// khai bao struct 
 typedef struct
 {
     char hoTen[100];
     int tuoi;
     float diemTB;
 } SinhVien;
+// khai báo node 
 typedef struct node
 {
     SinhVien data;
     struct node*next;
 } node;
+// cấp phát vi trí ban bau cua ndoe 
 node* first = NULL;
+// hàm nhap thong tin 
 SinhVien nhapdata()
 {
     SinhVien sv;
@@ -32,10 +36,12 @@ SinhVien nhapdata()
     scanf("%f",&sv.diemTB);
     return sv;
 }
+// cấp phat động node 
 node* capphatnode()
 {
     return (node*)malloc(sizeof(node));
 }
+// nhập dữ liệu vào ndoe 
 node* taovanhapnode()
 {
     node* pnode = capphatnode();
@@ -43,11 +49,13 @@ node* taovanhapnode()
     pnode->next = NULL;
     return pnode;
 }
+// thêm node đầu tiên nếu chưa có ndoe nào 
 void themnodedautien(node* pnode)
 {
     first = pnode;
     pnode->next=NULL;
 }
+//
 void themnodevaodau(node* pnode)
 {
     if(first==NULL)
@@ -60,6 +68,7 @@ void themnodevaodau(node* pnode)
         first= pnode;
     }
 }
+// tim ndoe cuoi cung để thêm node vào vị trí tiếp theo 
 node* timnodecuoicung()
 {
     if (first==NULL)
@@ -69,6 +78,7 @@ node* timnodecuoicung()
         i = i->next;
     return i;
 }
+// sắp sếp tên sinh viên theo tứ từ từ a - z 
 void sapXepTangDan()
 {
     if (first==NULL)
@@ -86,23 +96,25 @@ void sapXepTangDan()
         }
     }
 }
+// thêm node vào cuối cùng của danh sách 
 void themnodevaocuoi(node* pnode)
 {
     if(first==NULL)
     {
-        themnodedautien(pnode);
-    }
+        themnodedautien(pnode);  // nếu chưa có node thì tạo mọt ndoe 
     else
-    {
-        node* lastnode = timnodecuoicung();
+    { // có rồi thì thêm vào cuối 
+        node* lastnode = timnodecuoicung();// tim vị trí cuối cùng của node cũ 
         lastnode->next = pnode;
         pnode->next = NULL;
     }
-}
+} 
+// 
 void hienthimotSinhvien(SinhVien sv)
 {
     printf("%20s%20d%20.2f\n",sv.hoTen,sv.tuoi,sv.diemTB);
 }
+//
 void hienThiDanhSach ()
 {
     int stt=1;
@@ -116,6 +128,7 @@ void hienThiDanhSach ()
     }
     printf("\n");
 }
+// tim node nào đó theo teen để sửa hoạc xóa node mà không phân biệt hoa thường 
 node* timnodetheoten(char* tencantim)
 {
     char tmptencantim[100];
