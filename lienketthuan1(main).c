@@ -117,5 +117,10 @@ void xoatoanbodanhsach()
 }
 int main()
 {
+      themnodevaocuoi(taovanhapnode());
+     themnodevaocuoi(taovanhapnode());
+      themnodevaocuoi(taovanhapnode());
+       themnodevaocuoi(taovanhapnode());
+       hienThiDanhSach();
   // tu them cac tac dung sau ham main
 }
