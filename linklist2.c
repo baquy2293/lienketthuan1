@@ -11,24 +11,26 @@ typedef struct
     char hoTen[100];
     int tuoi;
     float diemTB;
-}SinhVien;
+} SinhVien;
 typedef struct node
 {
     SinhVien data;
     struct node*next;
-}node;
+} node;
 node* first = NULL;
 SinhVien nhapdata()
 {
     SinhVien sv;
-    printf("nhap ho ten sinh vien\n");fflush(stdin);
+    printf("nhap ho ten sinh vien\n");
+    fflush(stdin);
     gets(sv.hoTen);
-    printf("nhap tuoi \n");fflush(stdin);
+    printf("nhap tuoi \n");
+    fflush(stdin);
     scanf("%d",&sv.tuoi);
-    printf("nhap diem trung binh\n");fflush(stdin);
+    printf("nhap diem trung binh\n");
+    fflush(stdin);
     scanf("%f",&sv.diemTB);
     return sv;
-
 }
 node* capphatnode()
 {
@@ -46,20 +48,21 @@ void themnodedautien(node* pnode)
     first = pnode;
     pnode->next=NULL;
 }
-
 void themnodevaodau(node* pnode)
 {
     if(first==NULL)
     {
         themnodedautien(pnode);
-    }else{
-    pnode->next=first;
-    first= pnode;
+    }
+    else
+    {
+        pnode->next=first;
+        first= pnode;
     }
 }
 node* timnodecuoicung()
 {
-  if (first==NULL)
+    if (first==NULL)
         return NULL;
     node* i = first;
     while (i->next!=NULL)
@@ -87,12 +90,13 @@ void themnodevaocuoi(node* pnode)
 {
     if(first==NULL)
     {
-
         themnodedautien(pnode);
-    }else{
-    node* lastnode = timnodecuoicung();
-    lastnode->next = pnode;
-    pnode->next = NULL;
+    }
+    else
+    {
+        node* lastnode = timnodecuoicung();
+        lastnode->next = pnode;
+        pnode->next = NULL;
     }
 }
 void hienthimotSinhvien(SinhVien sv)
@@ -106,7 +110,8 @@ void hienThiDanhSach ()
     printf("%5s%20s%20s%20s","STT","HO TEN","TUOI","DIEM TB\n");
     for (node* i=first; i!=NULL; i=i->next)
     {
-        printf("%5d",stt);stt++;
+        printf("%5d",stt);
+        stt++;
         hienthimotSinhvien(i->data);
     }
     printf("\n");
@@ -115,7 +120,7 @@ node* timnodetheoten(char* tencantim)
 {
     char tmptencantim[100];
     char tmpHoten[100];
-    for(node* i =first;i!=NULL;i=i->next)
+    for(node* i =first; i!=NULL; i=i->next)
     {
         strcpy(tmpHoten,i->data.hoTen);
         strcpy(tmptencantim,tencantim);
@@ -131,9 +136,11 @@ void themPnodesauQnode(node* pnode,node* qnode)
     if(qnode==NULL)
     {
         return;
-    }else{
-    pnode->next=qnode->next;
-    qnode->next= pnode;
+    }
+    else
+    {
+        pnode->next=qnode->next;
+        qnode->next= pnode;
     }
 }
 void xoanode(node* pnode)
@@ -147,8 +154,9 @@ void xoanode(node* pnode)
     {
         first = pnode->next;
         free(pnode);
-    }else
-    // bat ki vi tri nao trong danh sach
+    }
+    else
+        // bat ki vi tri nao trong danh sach
     {
         // tim phan tu truoc node
         node* i =first;
@@ -162,7 +170,7 @@ void xoanode(node* pnode)
 }
 void xoatoanbodanhsach()
 {
- while (first!=NULL)
+    while (first!=NULL)
     {
         xoanode(first);
         first=first->next;
@@ -170,12 +178,12 @@ void xoatoanbodanhsach()
 }
 void suanode(node* pnode)
 {
- pnode->data=nhapdata();
+    pnode->data=nhapdata();
 }
 void inmenu()
 {
     printf("\t\tMENU\n");
-     printf("\t0. KET THUC\n");
+    printf("\t0. KET THUC\n");
     printf("\t1. TAO DANH SACH SINH VIEN\n");
     printf("\t2. HIEN THI DANH SACH\n");
     printf("\t3. CHEN THEM MOT SINH VIEN\n");
@@ -191,108 +199,76 @@ void taodanhsachsinhvien()
     {
         printf("nhap thong tin sinh vien thu %d \n",dem++);
         themnodevaocuoi(taovanhapnode());
-         printf("nhap y de tiep tuc ");
-         fflush(stdin);
-               char chon =getchar();
-               if(chon!='y'&&chon!='Y')
-                break;
+        printf("nhap y de tiep tuc ");
+        fflush(stdin);
+        char chon =getchar();
+        if(chon!='y'&&chon!='Y')
+            break;
     }
 }
-
 int main()
 {
-
-   while(true)
-   {
-    inmenu();
-    int chon;
-    printf("MOI BAN CHON YEU CAU\n");
-    scanf("%d",&chon);
-    fflush(stdin);
-    system("cls");
-       if(chon == 1)
-       {
-           xoatoanbodanhsach();
-           printf("\tBAN DA CHON TAO DANH SACH SINH VIEN\n");
-       taodanhsachsinhvien();
-       }
-       else if(2==chon)
-       {
-
-        hienThiDanhSach();
-
-       }
-       else if(3==chon)
-       {
-printf("BAN DA CHON CHEN MOT SINH VIEN\n");
-printf("VUI LONG NHAP THONG TIN SINH VIEN MOI\n");
-   themnodevaocuoi(taovanhapnode());
-
-       }
-       else if(4==chon)
-       {
-           printf("BAN DA CHON XOA MOT SINH VIEN\n");
-       printf("vui long ban nhap ten muon xoa\n");
-       char tencantim[100];fflush(stdin);
-       gets(tencantim);
-    node* qnode = timnodetheoten(tencantim);
-    xoanode(qnode);
-       }
-       else if(5==chon)
-       {
-
-           printf("BAN DA CHON SUA MOT SINH VIEN\n");
-       printf("vui long ban nhap ten muon sua\n");
-       char tencantim[100];fflush(stdin);
-       gets(tencantim);
-    node* editnode = timnodetheoten(tencantim);
-    suanode(editnode);
-       }
-       else if(0==chon)
-       {
-printf("\t\t\tBYTE !");
-return 0;
-
-       }
-       else if(6==chon)
-       {
-  printf("\tBan da chon sap xep danh sach theo ten\n");
-sapXepTangDan();
-     printf("\tSap xep xong!!! Danh sach moi la\n");
-  hienThiDanhSach();
-
-       }else{
-       printf("nhap cac so tu 0 den 7");
-       }
-printf("BAM PHIM BAT KI DE VAO MENU\n");
-getch();
-   }
+    while(true)
+    {
+        inmenu();
+        int chon;
+        printf("MOI BAN CHON YEU CAU\n");
+        scanf("%d",&chon);
+        fflush(stdin);
+        system("cls");
+        if(chon == 1)
+        {
+            xoatoanbodanhsach();
+            printf("\tBAN DA CHON TAO DANH SACH SINH VIEN\n");
+            taodanhsachsinhvien();
+        }
+        else if(2==chon)
+        {
+            hienThiDanhSach();
+        }
+        else if(3==chon)
+        {
+            printf("BAN DA CHON CHEN MOT SINH VIEN\n");
+            printf("VUI LONG NHAP THONG TIN SINH VIEN MOI\n");
+            themnodevaocuoi(taovanhapnode());
+        }
+        else if(4==chon)
+        {
+            printf("BAN DA CHON XOA MOT SINH VIEN\n");
+            printf("vui long ban nhap ten muon xoa\n");
+            char tencantim[100];
+            fflush(stdin);
+            gets(tencantim);
+            node* qnode = timnodetheoten(tencantim);
+            xoanode(qnode);
+        }
+        else if(5==chon)
+        {
+            printf("BAN DA CHON SUA MOT SINH VIEN\n");
+            printf("vui long ban nhap ten muon sua\n");
+            char tencantim[100];
+            fflush(stdin);
+            gets(tencantim);
+            node* editnode = timnodetheoten(tencantim);
+            suanode(editnode);
+        }
+        else if(0==chon)
+        {
+            printf("\t\t\tBYTE !");
+            return 0;
+        }
+        else if(6==chon)
+        {
+            printf("\tBan da chon sap xep danh sach theo ten\n");
+            sapXepTangDan();
+            printf("\tSap xep xong!!! Danh sach moi la\n");
+            hienThiDanhSach();
+        }
+        else
+        {
+            printf("nhap cac so tu 0 den 7");
+        }
+        printf("BAM PHIM BAT KI DE VAO MENU\n");
+        getch();
+    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
